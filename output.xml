@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.10.12 on win32)" generated="20240109 15:44:37.100" rpa="true" schemaversion="4">
+<suite id="s1" name="Tasks" source="c:\Robocorp\my-op-robot\tasks.robot">
+<test id="s1-t1" name="Order robots from RobotSpareBin Industries Inc" line="17">
+<kw name="Open the robot order website">
+<kw name="Open Available Browser" library="RPA.Browser.Selenium">
+<arg>https://robotsparebinindustries.com</arg>
+<doc>Attempts to open a browser on the user's device from a set of
+supported browsers. Automatically downloads a corresponding webdriver
+if none is already installed.</doc>
+<msg timestamp="20240109 15:44:46.162" level="INFO">Downloaded webdriver to: C:\Users\spaansr\AppData\Local\robocorp\webdrivers\.wdm\drivers\chromedriver\win64\120.0.6099.109\chromedriver-win32/chromedriver.exe</msg>
+<msg timestamp="20240109 15:44:46.304" level="INFO">Webdriver version taken into use: ChromeDriver 120.0.6099.109 (3419140ab665596f21b385ce136419fde0924272-refs/branch-heads/6099@{#1483})
+</msg>
+<msg timestamp="20240109 15:44:47.695" level="INFO">Targeted browser version: 120.0.6099</msg>
+<msg timestamp="20240109 15:44:47.695" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20240109 15:44:49.033" level="INFO">Created Chrome browser with arguments: --disable-dev-shm-usage --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20240109 15:44:49.034" level="INFO" html="true">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;Message: Webdriver executable 'chromedriver' is not in PATH (with disabled Selenium Manager)
+&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20240109 15:44:49.035" level="INFO">Opening url 'https://robotsparebinindustries.com'</msg>
+<status status="PASS" starttime="20240109 15:44:41.801" endtime="20240109 15:44:49.390"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:41.801" endtime="20240109 15:44:49.392"/>
+</kw>
+<kw name="Download the orders file">
+<kw name="Download" library="RPA.HTTP">
+<arg>https://robotsparebinindustries.com/orders.csv</arg>
+<arg>overwrite=True</arg>
+<doc>An alias for the ``HTTP Get`` keyword.</doc>
+<msg timestamp="20240109 15:44:49.400" level="INFO">Creating a new HTTP session</msg>
+<msg timestamp="20240109 15:44:49.401" level="INFO">Creating Session using : alias=rpasession_alias.httpsrobotsparebinindustries.com, url=https://robotsparebinindustries.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20240109 15:44:49.397" endtime="20240109 15:44:49.936"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:49.394" endtime="20240109 15:44:49.936"/>
+</kw>
+<kw name="Read csv file to table">
+<kw name="Read table from CSV" library="RPA.Tables">
+<var>${orders}</var>
+<arg>orders.csv</arg>
+<doc>Read a CSV file as a table.</doc>
+<msg timestamp="20240109 15:44:49.936" level="INFO">${orders} = Table(columns=['Order number', 'Head', 'Body', 'Legs', 'Address'], rows=20)</msg>
+<status status="PASS" starttime="20240109 15:44:49.936" endtime="20240109 15:44:49.936"/>
+</kw>
+<for flavor="IN">
+<var>${order}</var>
+<value>@{orders}</value>
+<iter>
+<var name="${order}">{'Order number': '1', 'Head': '1', 'Body': '2', 'Legs': '3', 'Address': 'Address 123'}</var>
+<kw name="Log" library="BuiltIn">
+<arg>${order}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240109 15:44:49.958" level="INFO">{'Order number': '1', 'Head': '1', 'Body': '2', 'Legs': '3', 'Address': 'Address 123'}</msg>
+<status status="PASS" starttime="20240109 15:44:49.956" endtime="20240109 15:44:49.958"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:49.955" endtime="20240109 15:44:49.959"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '2', 'Head': '4', 'Body': '1', 'Legs': '5', 'Address': 'Address 456'}</var>
+<kw name="Log" library="BuiltIn">
+<arg>${order}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240109 15:44:49.963" level="INFO">{'Order number': '2', 'Head': '4', 'Body': '1', 'Legs': '5', 'Address': 'Address 456'}</msg>
+<status status="PASS" starttime="20240109 15:44:49.963" endtime="20240109 15:44:49.963"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:49.962" endtime="20240109 15:44:49.963"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '3', 'Head': '6', 'Body': '2', 'Legs': '3', 'Address': 'Address 789'}</var>
+<kw name="Log" library="BuiltIn">
+<arg>${order}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240109 15:44:49.963" level="INFO">{'Order number': '3', 'Head': '6', 'Body': '2', 'Legs': '3', 'Address': 'Address 789'}</msg>
+<status status="PASS" starttime="20240109 15:44:49.963" endtime="20240109 15:44:49.963"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:49.963" endtime="20240109 15:44:49.963"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '4', 'Head': '2', 'Body': '3', 'Legs': '2', 'Address': 'Address 1'}</var>
+<kw name="Log" library="BuiltIn">
+<arg>${order}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240109 15:44:49.963" level="INFO">{'Order number': '4', 'Head': '2', 'Body': '3', 'Legs': '2', 'Address': 'Address 1'}</msg>
+<status status="PASS" starttime="20240109 15:44:49.963" endtime="20240109 15:44:49.963"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:49.963" endtime="20240109 15:44:49.963"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '5', 'Head': '3', 'Body': '5', 'Legs': '1', 'Address': 'Address 2'}</var>
+<kw name="Log" library="BuiltIn">
+<arg>${order}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240109 15:44:49.978" level="INFO">{'Order number': '5', 'Head': '3', 'Body': '5', 'Legs': '1', 'Address': 'Address 2'}</msg>
+<status status="PASS" starttime="20240109 15:44:49.977" endtime="20240109 15:44:49.979"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:49.963" endtime="20240109 15:44:49.980"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '6', 'Head': '1', 'Body': '6', 'Legs': '6', 'Address': 'Address 3'}</var>
+<kw name="Log" library="BuiltIn">
+<arg>${order}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240109 15:44:49.985" level="INFO">{'Order number': '6', 'Head': '1', 'Body': '6', 'Legs': '6', 'Address': 'Address 3'}</msg>
+<status status="PASS" starttime="20240109 15:44:49.984" endtime="20240109 15:44:49.986"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:49.982" endtime="20240109 15:44:49.987"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '7', 'Head': '5', 'Body': '1', 'Legs': '5', 'Address': 'Address 4'}</var>
+<kw name="Log" library="BuiltIn">
+<arg>${order}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240109 15:44:49.990" level="INFO">{'Order number': '7', 'Head': '5', 'Body': '1', 'Legs': '5', 'Address': 'Address 4'}</msg>
+<status status="PASS" starttime="20240109 15:44:49.989" endtime="20240109 15:44:49.990"/>
+</kw>
+<status status="PASS" starttime="20240109 15:44:49.987" endtime="20240109 15:44:49.991"/>
+</iter>
+<iter>
+<var name="${order}">{'Order number': '8', 'Head': '2', 'Body': '3', 'Legs': '3', 'Address': 'Address 5'}</var>
+<kw name="Log" library="BuiltIn">
+<arg>${order}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20240109 15:44:49.994" level="INFO">{'Order number': '8', 'Head': '2', 'Body': '3', 'Legs': '3', 'Address': 'Address 5'}</msg>
+<status status="PASS" starttime="20240109 15:44:49.993" endtime="20240109 15:44:49.995"/>
+</kw>
